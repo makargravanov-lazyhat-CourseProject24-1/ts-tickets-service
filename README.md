@@ -1,1 +1,5 @@
 # ts-tickets-service
+
+PARENT PROJECT
+
+RUN ONLY WITH ROOT PROJECT
