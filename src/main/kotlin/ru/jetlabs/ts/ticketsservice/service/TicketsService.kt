@@ -2,6 +2,8 @@ package ru.jetlabs.ts.ticketsservice.service
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import ru.jetlabs.ts.ticketsservice.client.payment.PaymentClient
+import ru.jetlabs.ts.ticketsservice.client.payment.TransactionRegisterRequestForm
 import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelRoomsClient
 import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelsNutritionsClient
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
@@ -15,7 +17,8 @@ import java.sql.SQLException
 @Transactional
 class TicketsService(
     private val hotelRoomsClient: HotelRoomsClient,
-    private val hotelsNutritionsClient: HotelsNutritionsClient
+    private val hotelsNutritionsClient: HotelsNutritionsClient,
+    private val paymentClient: PaymentClient
 ) {
     fun registerTicket(form: RegisterTicketForm): RegisterTicketResult {
         try {
@@ -77,6 +80,16 @@ class TicketsService(
         try {
             val ticketDao =
                 TicketDao.findById(id) ?: return RequestTicketPaymentResult.Error.TicketNotFound(id = id)
+
+            val response = paymentClient.registerTransaction(
+                TransactionRegisterRequestForm(
+                    amount = ticketDao.tourCost + ticketDao.transportCost!!,
+                    agencyId = ticketDao.agencyId,
+                    ticketId = ticketDao.id.value,
+                    userId = ticketDao.userId,
+                )
+            )
+
             TicketStatusLogDao.new {
                 ticket = ticketDao
                 status = TicketStatus.PENDING

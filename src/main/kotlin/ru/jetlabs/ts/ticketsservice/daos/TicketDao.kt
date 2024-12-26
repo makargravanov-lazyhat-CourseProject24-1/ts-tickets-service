@@ -10,6 +10,7 @@ class TicketDao(id: EntityID<Long>) : LongEntity(id) {
 
     var tourId by Tickets.tourId
     var userId by Tickets.userId
+    var agencyId by Tickets.agencyId
     var tourCost by Tickets.tourCost
     var transportCost by Tickets.transportCost
     var startDate by Tickets.startDate

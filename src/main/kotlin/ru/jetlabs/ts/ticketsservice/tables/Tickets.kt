@@ -8,6 +8,7 @@ import java.time.LocalDateTime
 object Tickets : LongIdTable("tickets") {
     val tourId = long("tour_id")
     val userId = long("user_id")
+    val agencyId = long("agency_id")
     val tourCost = double("tour_cost")
     val transportCost = double("transport_cost").nullable()
     val startDate = date("start_date")
