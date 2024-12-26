@@ -83,7 +83,7 @@ class TicketsService(
 
             val response = paymentClient.registerTransaction(
                 TransactionRegisterRequestForm(
-                    amount = ticketDao.tourCost + ticketDao.transportCost!!,
+                    amount = ticketDao.tourCost + (ticketDao.transportCost ?: 0.0),
                     agencyId = ticketDao.agencyId,
                     ticketId = ticketDao.id.value,
                     userId = ticketDao.userId,
