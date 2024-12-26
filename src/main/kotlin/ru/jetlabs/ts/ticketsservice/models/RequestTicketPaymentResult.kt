@@ -1,4 +1,4 @@
-package ru.jetlabs.ts.ticketsservice.service
+package ru.jetlabs.ts.ticketsservice.models
 
 sealed interface RequestTicketPaymentResult {
     data object Success : RequestTicketPaymentResult

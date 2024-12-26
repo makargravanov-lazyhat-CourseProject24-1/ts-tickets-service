@@ -2,12 +2,11 @@ package ru.jetlabs.ts.ticketsservice.service
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketDao
+import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketStatusLogDao
 import ru.jetlabs.ts.ticketsservice.models.*
-import ru.jetlabs.ts.ticketsservice.rest.AddRouteToTicketForm
 import java.sql.SQLException
 
 @Component
@@ -16,8 +15,9 @@ class TicketsService {
     fun registerTicket(form: RegisterTicketForm): RegisterTicketResult =
         try {
             TicketDao.new {
-                tourId = form.tourId
                 userId = form.userId
+                tourId = form.tour.id
+
             }.also {
                 TicketStatusLogDao.new {
                     ticket = it

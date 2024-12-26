@@ -1,4 +1,4 @@
-package ru.jetlabs.ts.ticketsservice.rest
+package ru.jetlabs.ts.ticketsservice.models
 
 data class AddRouteToTicketForm(
     val routeId: Long

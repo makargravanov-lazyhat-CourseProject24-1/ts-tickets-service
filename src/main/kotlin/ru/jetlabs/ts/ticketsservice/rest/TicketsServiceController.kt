@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.jetlabs.ts.ticketsservice.models.*
-import ru.jetlabs.ts.ticketsservice.service.RequestTicketPaymentResult
 import ru.jetlabs.ts.ticketsservice.service.TicketsService
 
 @RestController
@@ -13,7 +12,7 @@ class TicketsServiceController(
     val ticketsService: TicketsService
 ) {
     @PostMapping
-    fun registerTicket(form: RegisterTicketForm): ResponseEntity<*> = ticketsService.registerTicket(form).let {
+    fun registerTicket(@RequestBody form: RegisterTicketForm): ResponseEntity<*> = ticketsService.registerTicket(form).let {
         when (it) {
             is RegisterTicketResult.Success -> ResponseEntity.status(HttpStatus.OK).body(it.ticket)
             is RegisterTicketResult.UnknownError -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)

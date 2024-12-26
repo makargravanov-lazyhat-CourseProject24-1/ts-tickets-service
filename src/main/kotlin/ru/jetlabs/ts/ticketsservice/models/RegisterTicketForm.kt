@@ -1,7 +1,6 @@
 package ru.jetlabs.ts.ticketsservice.models
 
 data class RegisterTicketForm(
-    val tourId: Long,
-    val cost: Float,
+    val tour: Tour,
     val userId: Long
 )
