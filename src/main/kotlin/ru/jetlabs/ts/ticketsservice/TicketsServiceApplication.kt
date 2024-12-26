@@ -101,7 +101,8 @@ sealed interface RegisterTicketResult {
 object Tickets : LongIdTable("tickets") {
     val tourId = long("tour_id")
     val userId = long("user_id")
-    val cost = float("cost")
+    val tourCost = double("tour_cost")
+    val transportCost = double("transport_cost").nullable()
     val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
 }
 
@@ -110,13 +111,35 @@ class TicketDao(id: EntityID<Long>) : LongEntity(id) {
 
     var tourId by Tickets.tourId
     var userId by Tickets.userId
+    var tourCost by Tickets.tourCost
+    var transportCost by Tickets.transportCost
     var createdAt by Tickets.createdAt
 
     val additionalUsers by AdditionalUserDao referrersOn Tickets.id
 }
 
+data class Ticket(
+    val id: Long,
+    val tourId: Long,
+    val userId: Long,
+    val tourCost: Double,
+    val transportCost: Double?,
+    val createdAt: LocalDateTime,
+    val additionalUsers: List<Long>
+)
+
+fun TicketDao.mapToTicket(): Ticket = Ticket(
+    id = id.value,
+    tourId = tourId,
+    userId = userId,
+    tourCost = tourCost,
+    transportCost = transportCost,
+    createdAt = createdAt,
+    additionalUsers = additionalUsers.map { userId }.toList()
+)
+
 enum class TicketStatus {
-    CREATED, PAYED, CANCELLED
+    CREATED, PENDING, PAYED, CANCELLED
 }
 
 object TicketStatusLogs : LongIdTable("ticket_status_logs") {
@@ -156,18 +179,4 @@ data class RegisterTicketForm(
     val tourId: Long,
     val cost: Float,
     val userId: Long
-)
-
-data class Ticket(
-    val id: Long,
-    val tourId: Long,
-    val userId: Long,
-    val additionalUsers: List<Long>
-)
-
-fun TicketDao.mapToTicket(): Ticket = Ticket(
-    id = id.value,
-    tourId = tourId,
-    userId = userId,
-    additionalUsers = additionalUsers.map { userId }.toList()
 )
