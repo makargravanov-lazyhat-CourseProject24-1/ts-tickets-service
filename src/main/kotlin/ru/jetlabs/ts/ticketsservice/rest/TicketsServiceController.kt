@@ -46,7 +46,7 @@ class TicketsServiceController(
     fun requestTicketPayment(@PathVariable id: Long): ResponseEntity<*> =
         ticketsService.requestTicketPayment(id = id).let {
             when (it) {
-                is RequestTicketPaymentResult.Success -> ResponseEntity.status(HttpStatus.OK).build()
+                is RequestTicketPaymentResult.Success -> ResponseEntity.status(HttpStatus.OK).body(it.result)
                 is RequestTicketPaymentResult.Error -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
             }
         }

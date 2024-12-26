@@ -94,7 +94,7 @@ class TicketsService(
                 ticket = ticketDao
                 status = TicketStatus.PENDING
             }
-            return RequestTicketPaymentResult.Success
+            return RequestTicketPaymentResult.Success(response.body.toString())
         } catch (e: SQLException) {
             return RequestTicketPaymentResult.Error.UnknownError(e.stackTraceToString())
         }

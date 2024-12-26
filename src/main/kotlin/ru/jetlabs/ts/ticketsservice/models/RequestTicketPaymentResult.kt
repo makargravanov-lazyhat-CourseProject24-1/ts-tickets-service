@@ -1,7 +1,7 @@
 package ru.jetlabs.ts.ticketsservice.models
 
 sealed interface RequestTicketPaymentResult {
-    data object Success : RequestTicketPaymentResult
+    data class Success(val result: String) : RequestTicketPaymentResult
     sealed interface Error : RequestTicketPaymentResult {
         val message: String
 
