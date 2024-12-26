@@ -12,7 +12,7 @@ import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.NutritionType
     name = "ts-tour-data-service-nutritions",
     url = "http://ts-tour-data-service:8080/ts-tour-data-service/api/v1/nutritions"
 )
-interface  HotelsNutritionsClient {
+interface HotelsNutritionsClient {
     @GetMapping
     fun getNutritions(
         @RequestParam type: NutritionType?, @RequestParam costPerDay: Double?

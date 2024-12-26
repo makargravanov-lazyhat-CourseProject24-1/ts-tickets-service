@@ -9,7 +9,7 @@ import ru.jetlabs.ts.ticketsservice.client.tourdata.models.Hotel
 import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.HotelLevel
 
 @FeignClient(
-    name = "ts-tour-data-service-rooms",
+    name = "ts-tour-data-service-hotels",
     url = "http://ts-tour-data-service:8080/ts-tour-data-service/api/v1/hotels"
 )
 interface HotelsClient {
