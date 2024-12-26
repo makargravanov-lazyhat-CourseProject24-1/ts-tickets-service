@@ -16,7 +16,12 @@ class TicketsService {
             TicketDao.new {
                 tourId = form.tourId
                 userId = form.userId
-            }.mapToTicket().let {
+            }.mapToTicket().also {
+                TicketStatusLogDao.new {
+                    ticketId._value = it.id
+                    status = TicketStatus.CREATED
+                }
+            }.let {
                 RegisterTicketResult.Success(it)
             }
         } catch (e: SQLException) {
