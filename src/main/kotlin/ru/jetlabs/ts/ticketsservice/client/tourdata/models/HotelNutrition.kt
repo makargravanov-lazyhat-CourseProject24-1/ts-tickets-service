@@ -1,6 +1,6 @@
 package ru.jetlabs.ts.ticketsservice.client.tourdata.models
 
-import ru.jetlabs.ts.tourdataservice.models.enums.NutritionType
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.NutritionType
 
 data class HotelNutrition(
     val id: Long,

@@ -17,6 +17,9 @@ class TicketsService(
 ) {
     fun registerTicket(form: RegisterTicketForm): RegisterTicketResult =
         try {
+            val room = hotelRoomsClient.getRoomById(form.tour.roomId)
+            //val nutrition =
+
             TicketDao.new {
                 userId = form.userId
                 tourId = form.tour.id

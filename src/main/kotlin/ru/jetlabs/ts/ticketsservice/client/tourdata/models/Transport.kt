@@ -1,6 +1,6 @@
 package ru.jetlabs.ts.ticketsservice.client.tourdata.models
 
-import ru.jetlabs.ts.tourdataservice.models.enums.TransportType
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.TransportType
 
 data class Transport(
     val id: Long,

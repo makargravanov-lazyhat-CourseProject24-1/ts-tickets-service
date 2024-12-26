@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import ru.jetlabs.ts.ticketsservice.client.tourdata.models.HotelRoom
-import ru.jetlabs.ts.tourdataservice.models.enums.RoomCapacity
-import ru.jetlabs.ts.tourdataservice.models.enums.RoomType
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.RoomCapacity
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.RoomType
 
 @FeignClient(
     name = "ts-tour-data-service-rooms",

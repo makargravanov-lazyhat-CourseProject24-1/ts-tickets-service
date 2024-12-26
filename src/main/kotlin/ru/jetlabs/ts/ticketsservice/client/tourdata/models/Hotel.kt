@@ -1,6 +1,6 @@
 package ru.jetlabs.ts.ticketsservice.client.tourdata.models
 
-import ru.jetlabs.ts.tourdataservice.models.enums.HotelLevel
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.HotelLevel
 
 data class Hotel(
     val id: Long,

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import ru.jetlabs.ts.ticketsservice.client.tourdata.models.Transport
-import ru.jetlabs.ts.tourdataservice.models.enums.TransportType
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.enums.TransportType
 
 @FeignClient(
     name = "ts-tour-data-service-transport",
