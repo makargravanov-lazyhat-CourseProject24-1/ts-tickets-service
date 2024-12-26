@@ -3,6 +3,7 @@ package ru.jetlabs.ts.ticketsservice.service
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelRoomsClient
+import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelsNutritionsClient
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
@@ -13,17 +14,26 @@ import java.sql.SQLException
 @Component
 @Transactional
 class TicketsService(
-    private val hotelRoomsClient: HotelRoomsClient
+    private val hotelRoomsClient: HotelRoomsClient,
+    private val hotelsNutritionsClient: HotelsNutritionsClient
 ) {
-    fun registerTicket(form: RegisterTicketForm): RegisterTicketResult =
+    fun registerTicket(form: RegisterTicketForm): RegisterTicketResult {
         try {
-            val room = hotelRoomsClient.getRoomById(form.tour.roomId)
-            //val nutrition =
+            val room = hotelRoomsClient.getRoomById(form.tour.roomId).body ?: return RegisterTicketResult.RoomNotFound
+            val nutrition = hotelsNutritionsClient.getNutritionById(form.tour.nutritionId).body
+                ?: return RegisterTicketResult.NutritionNotFound
 
-            TicketDao.new {
+            val costPerDay = room.costPerDay + nutrition.costPerDay
+
+            val durationDays = form.tour.endDate.toEpochDay() - form.tour.startDate.toEpochDay()
+
+            return TicketDao.new {
                 userId = form.userId
                 tourId = form.tour.id
-
+                tourCost = durationDays * costPerDay
+                transportCost = null
+                startDate = form.tour.startDate
+                endDate = form.tour.endDate
             }.also {
                 TicketStatusLogDao.new {
                     ticket = it
@@ -33,8 +43,9 @@ class TicketsService(
                 RegisterTicketResult.Success(it)
             }
         } catch (e: SQLException) {
-            RegisterTicketResult.UnknownError(e.stackTraceToString())
+            return RegisterTicketResult.UnknownError(e.stackTraceToString())
         }
+    }
 
     fun addRouteToTicket(id: Long, form: AddRouteToTicketForm): AddRouteToTicketResult {
         try {
