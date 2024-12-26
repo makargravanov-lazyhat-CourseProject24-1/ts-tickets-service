@@ -2,7 +2,7 @@ package ru.jetlabs.ts.ticketsservice.service
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import ru.jetlabs.ts.ticketsservice.TicketRouteBindingDao
+import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketStatusLogDao
