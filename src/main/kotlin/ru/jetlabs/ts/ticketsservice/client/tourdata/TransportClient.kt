@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.Transport
 import ru.jetlabs.ts.tourdataservice.models.enums.TransportType
 
 @FeignClient(
@@ -12,9 +13,9 @@ import ru.jetlabs.ts.tourdataservice.models.enums.TransportType
 )
 interface TransportClient {
     @GetMapping
-    fun getRooms(
+    fun getTransports(
         @RequestParam name: String?,
         @RequestParam type: TransportType?,
         @RequestParam contractorId: Long?
-    ): ResponseEntity<*>
+    ): ResponseEntity<List<Transport>>
 }

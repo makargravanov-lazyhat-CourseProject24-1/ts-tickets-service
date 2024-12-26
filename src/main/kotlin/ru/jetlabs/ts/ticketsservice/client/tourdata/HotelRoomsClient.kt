@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.HotelRoom
 import ru.jetlabs.ts.tourdataservice.models.enums.RoomCapacity
 import ru.jetlabs.ts.tourdataservice.models.enums.RoomType
 
@@ -18,6 +19,6 @@ interface HotelRoomsClient {
         @RequestParam capacity: RoomCapacity?,
         @RequestParam type: RoomType?,
         @RequestParam wifi: Boolean?
-    ): ResponseEntity<*>
+    ): ResponseEntity<List<HotelRoom>>
 }
 

@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.Place
 
 @FeignClient(
     name = "ts-tour-data-service-places",
@@ -11,5 +12,5 @@ import org.springframework.web.bind.annotation.RequestParam
 )
 interface PlacesClient {
     @GetMapping
-    fun getPlaces(@RequestParam name: String?, @RequestParam address: String?): ResponseEntity<*>
+    fun getPlaces(@RequestParam name: String?, @RequestParam address: String?): ResponseEntity<List<Place>>
 }
