@@ -16,6 +16,8 @@ class TicketsServiceController(
         when (it) {
             is RegisterTicketResult.Success -> ResponseEntity.status(HttpStatus.OK).body(it.ticket)
             is RegisterTicketResult.UnknownError -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+            RegisterTicketResult.NutritionNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+            RegisterTicketResult.RoomNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
         }
     }
 
