@@ -12,14 +12,15 @@ class TicketsServiceController(
     val ticketsService: TicketsService
 ) {
     @PostMapping
-    fun registerTicket(@RequestBody form: RegisterTicketForm): ResponseEntity<*> = ticketsService.registerTicket(form).let {
-        when (it) {
-            is RegisterTicketResult.Success -> ResponseEntity.status(HttpStatus.OK).body(it.ticket)
-            is RegisterTicketResult.UnknownError -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
-            RegisterTicketResult.NutritionNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
-            RegisterTicketResult.RoomNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+    fun registerTicket(@RequestBody form: RegisterTicketForm): ResponseEntity<*> =
+        ticketsService.registerTicket(form).let {
+            when (it) {
+                is RegisterTicketResult.Success -> ResponseEntity.status(HttpStatus.OK).body(it.ticket)
+                is RegisterTicketResult.UnknownError -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+                RegisterTicketResult.NutritionNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+                RegisterTicketResult.RoomNotFound -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
+            }
         }
-    }
 
     @PostMapping("/{id}/addroute")
     fun addRouteToTicket(@PathVariable id: Long, @RequestBody body: AddRouteToTicketForm): ResponseEntity<*> =
@@ -68,6 +69,7 @@ class TicketsServiceController(
     }
 
     @GetMapping("/byuser/{id}")
-    fun getTicketsByUserId(@PathVariable id: Long) = ticketsService.getTicketsByUserId(id)
+    fun getTicketsByUserId(@PathVariable id: Long): ResponseEntity<*> =
+        ticketsService.getTicketsByUserId(id).let { ResponseEntity.status(HttpStatus.OK).body(it) }
 }
 

@@ -3,6 +3,7 @@ package ru.jetlabs.ts.ticketsservice.tables
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.date
 import org.jetbrains.exposed.sql.javatime.datetime
+import ru.jetlabs.ts.ticketsservice.models.TicketStatus
 import java.time.LocalDateTime
 
 object Tickets : LongIdTable("tickets") {
@@ -13,5 +14,6 @@ object Tickets : LongIdTable("tickets") {
     val transportCost = double("transport_cost").nullable()
     val startDate = date("start_date")
     val endDate = date("end_date")
+    val status = enumeration<TicketStatus>("status").clientDefault { TicketStatus.CREATED }
     val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
 }

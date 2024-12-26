@@ -9,7 +9,6 @@ import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelsNutritionsClient
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
-import ru.jetlabs.ts.ticketsservice.daos.TicketStatusLogDao
 import ru.jetlabs.ts.ticketsservice.models.*
 import ru.jetlabs.ts.ticketsservice.tables.Tickets
 import java.sql.SQLException
@@ -38,11 +37,6 @@ class TicketsService(
                 transportCost = null
                 startDate = form.tour.startDate
                 endDate = form.tour.endDate
-            }.also {
-                TicketStatusLogDao.new {
-                    ticket = it
-                    status = TicketStatus.CREATED
-                }
             }.mapToTicket().let {
                 RegisterTicketResult.Success(it)
             }
@@ -91,10 +85,8 @@ class TicketsService(
                 )
             )
 
-            TicketStatusLogDao.new {
-                ticket = ticketDao
-                status = TicketStatus.PENDING
-            }
+            ticketDao.status = TicketStatus.PENDING
+
             return RequestTicketPaymentResult.Success(response.body.toString())
         } catch (e: SQLException) {
             return RequestTicketPaymentResult.Error.UnknownError(e.stackTraceToString())
@@ -105,10 +97,9 @@ class TicketsService(
         try {
             val ticketDao =
                 TicketDao.findById(id) ?: return CancelTicketResult.Error.TicketNotFound(id = id)
-            TicketStatusLogDao.new {
-                ticket = ticketDao
-                status = TicketStatus.CANCELLED
-            }
+
+            ticketDao.status = TicketStatus.CANCELLED
+
             return CancelTicketResult.Success
         } catch (e: SQLException) {
             return CancelTicketResult.Error.UnknownError(message = e.stackTraceToString())
@@ -119,10 +110,9 @@ class TicketsService(
         try {
             val ticketDao =
                 TicketDao.findById(id) ?: return ApproveTicketResult.Error.TicketNotFound(id)
-            TicketStatusLogDao.new {
-                ticket = ticketDao
-                status = TicketStatus.PAYED
-            }
+
+            ticketDao.status = TicketStatus.PAYED
+
             return ApproveTicketResult.Success
         } catch (e: SQLException) {
             return ApproveTicketResult.Error.UnknownError(message = e.stackTraceToString())

@@ -16,6 +16,7 @@ class TicketDao(id: EntityID<Long>) : LongEntity(id) {
     var startDate by Tickets.startDate
     var endDate by Tickets.endDate
     var createdAt by Tickets.createdAt
+    var status by Tickets.status
 
     val additionalUsers by AdditionalUserDao referrersOn Tickets.id
 }

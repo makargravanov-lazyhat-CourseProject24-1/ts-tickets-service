@@ -14,6 +14,7 @@ data class Ticket(
     val createdAt: LocalDateTime,
     val additionalUsers: List<Long>,
     val endDate: LocalDate,
+    val status: TicketStatus,
     val startDate: LocalDate
 )
 
@@ -27,5 +28,6 @@ fun TicketDao.mapToTicket(): Ticket = Ticket(
     startDate = startDate,
     endDate = endDate,
     createdAt = createdAt,
+    status = status,
     additionalUsers = additionalUsers.map { userId }.toList()
 )
