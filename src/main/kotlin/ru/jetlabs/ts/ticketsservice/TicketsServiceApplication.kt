@@ -35,9 +35,6 @@ class TicketsServiceController(
         }
     }
 
-    @GetMapping("/addroute")
-    fun addRouteToTicket(@RequestParam routeId: Long): ResponseEntity<*>
-
     @GetMapping("/adduser")
     fun addUserToTicket(@RequestBody body: AddUserToTicketForm): ResponseEntity<*> =
         ticketsService.addUserToTicket(form = body).let {
