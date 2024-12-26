@@ -104,6 +104,7 @@ sealed interface RegisterTicketResult {
 object Tickets : LongIdTable("tickets") {
     val tourId = long("tour_id")
     val userId = long("user_id")
+    val cost = float("cost")
     val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
 }
 
@@ -156,6 +157,7 @@ class AdditionalUserDao(id: EntityID<Long>) : LongEntity(id) {
 
 data class RegisterTicketForm(
     val tourId: Long,
+    val cost: Float,
     val userId: Long
 )
 
