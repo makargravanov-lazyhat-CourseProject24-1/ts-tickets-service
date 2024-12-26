@@ -2,6 +2,7 @@ package ru.jetlabs.ts.ticketsservice.service
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import ru.jetlabs.ts.ticketsservice.client.tourdata.HotelRoomsClient
 import ru.jetlabs.ts.ticketsservice.daos.AdditionalUserDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
@@ -11,7 +12,9 @@ import java.sql.SQLException
 
 @Component
 @Transactional
-class TicketsService {
+class TicketsService(
+    private val hotelRoomsClient: HotelRoomsClient
+) {
     fun registerTicket(form: RegisterTicketForm): RegisterTicketResult =
         try {
             TicketDao.new {
