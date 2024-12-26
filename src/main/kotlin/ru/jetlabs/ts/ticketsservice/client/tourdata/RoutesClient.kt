@@ -2,9 +2,9 @@ package ru.jetlabs.ts.ticketsservice.client.tourdata
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
-import org.springframework.util.RouteMatcher.Route
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import ru.jetlabs.ts.ticketsservice.client.tourdata.models.TransportRoute
 import ru.jetlabs.ts.tourdataservice.models.enums.TransportType
 
 @FeignClient(
@@ -18,5 +18,5 @@ interface RoutesClient {
         @RequestParam departurePlaceId: Long?,
         @RequestParam arrivePlaceId: Long?,
         @RequestParam transportType: TransportType?,
-    ): ResponseEntity<List<Route>>
+    ): ResponseEntity<List<TransportRoute>>
 }
