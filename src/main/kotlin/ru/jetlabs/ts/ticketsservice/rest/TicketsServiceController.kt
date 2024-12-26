@@ -66,5 +66,8 @@ class TicketsServiceController(
             is ApproveTicketResult.Error -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(it)
         }
     }
+
+    @GetMapping("/byuser/{id}")
+    fun getTicketsByUserId(@PathVariable id: Long) = ticketsService.getTicketsByUserId(id)
 }
 

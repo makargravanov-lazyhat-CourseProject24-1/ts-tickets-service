@@ -11,6 +11,7 @@ import ru.jetlabs.ts.ticketsservice.daos.TicketDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketRouteBindingDao
 import ru.jetlabs.ts.ticketsservice.daos.TicketStatusLogDao
 import ru.jetlabs.ts.ticketsservice.models.*
+import ru.jetlabs.ts.ticketsservice.tables.Tickets
 import java.sql.SQLException
 
 @Component
@@ -127,5 +128,7 @@ class TicketsService(
             return ApproveTicketResult.Error.UnknownError(message = e.stackTraceToString())
         }
     }
+
+    fun getTicketsByUserId(id: Long): List<Ticket> = TicketDao.find { Tickets.userId eq id }.map { it.mapToTicket() }
 }
 
