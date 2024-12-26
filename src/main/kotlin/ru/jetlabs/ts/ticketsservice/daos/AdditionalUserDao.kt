@@ -8,6 +8,6 @@ import ru.jetlabs.ts.ticketsservice.tables.AdditionalUsers
 class AdditionalUserDao(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<AdditionalUserDao>(AdditionalUsers)
 
-    var ticketId by AdditionalUsers.ticketId
+    var ticket by TicketDao referencedOn AdditionalUsers.ticketId
     var userId by AdditionalUsers.userId
 }

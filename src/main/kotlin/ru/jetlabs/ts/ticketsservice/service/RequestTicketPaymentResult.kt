@@ -1,8 +1,8 @@
-package ru.jetlabs.ts.ticketsservice.models
+package ru.jetlabs.ts.ticketsservice.service
 
-sealed interface CancelTicketResult {
-    data object Success : CancelTicketResult
-    sealed interface Error : CancelTicketResult {
+sealed interface RequestTicketPaymentResult {
+    data object Success : RequestTicketPaymentResult
+    sealed interface Error : RequestTicketPaymentResult {
         val message: String
 
         data class TicketNotFound(val id: Long) : Error {
@@ -12,4 +12,3 @@ sealed interface CancelTicketResult {
         data class UnknownError(override val message: String) : Error
     }
 }
-
