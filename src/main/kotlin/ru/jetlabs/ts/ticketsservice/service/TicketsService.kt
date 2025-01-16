@@ -33,6 +33,7 @@ class TicketsService(
             return TicketDao.new {
                 userId = form.userId
                 tourId = form.tour.id
+                agencyId = form.tour.agencyId
                 tourCost = durationDays * costPerDay
                 transportCost = null
                 startDate = form.tour.startDate
