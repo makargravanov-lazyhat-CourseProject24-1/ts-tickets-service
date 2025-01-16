@@ -3,6 +3,7 @@ package ru.jetlabs.ts.ticketsservice.daos
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import ru.jetlabs.ts.ticketsservice.tables.AdditionalUsers
 import ru.jetlabs.ts.ticketsservice.tables.Tickets
 
 class TicketDao(id: EntityID<Long>) : LongEntity(id) {
@@ -18,5 +19,5 @@ class TicketDao(id: EntityID<Long>) : LongEntity(id) {
     var createdAt by Tickets.createdAt
     var status by Tickets.status
 
-    val additionalUsers by AdditionalUserDao referrersOn Tickets.id
+    val additionalUsers by AdditionalUserDao referrersOn AdditionalUsers.ticketId
 }
