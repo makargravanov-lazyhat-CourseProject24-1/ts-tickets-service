@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody
 @FeignClient(name = "ts-payment-service", url = "http://ts-payment-service:8080/ts-payment-service/api/v1")
 interface PaymentClient {
     @PostMapping("/bind-transaction-status")
-    fun registerTransaction(@RequestBody form: TransactionRegisterRequestForm): ResponseEntity<*>
+    fun registerTransaction(@RequestBody form: TransactionRegisterRequestForm): ResponseEntity<String>
 }
 
